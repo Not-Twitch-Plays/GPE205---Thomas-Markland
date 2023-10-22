@@ -5,7 +5,6 @@ using UnityEngine;
 public class Bullet : MonoBehaviour
 {
     public int speed;
-    public int dmg;
     public int maxBounces;
 
     public GameObject deathExplosion;
@@ -32,37 +31,28 @@ public class Bullet : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.tag == "Tank")
+        if (collision.gameObject.tag == "Bullet")
         {
-            //We hit a tank!
-            collision.gameObject.GetComponent<Health>().DoTakeDamage(dmg);
-            Destroy(gameObject);
+            //We hit another bullet!
+            Destroy(collision.gameObject);
+            Die();
         }
         else
         {
-            if (collision.gameObject.tag == "Bullet")
+            //If we made it this far and we haven't been destroyed yet, we are probably
+            //bouncing off of a wall :)
+
+            bounces++;
+            if (bounces > maxBounces)
             {
-                //We hit another bullet!
-                Destroy(collision.gameObject);
+                //Too many bounces. I'm dead X(
                 Die();
             }
             else
             {
-                //If we made it this far and we haven't been destroyed yet, we are probably
-                //bouncing off of a wall :)
-
-                bounces++;
-                if (bounces > maxBounces)
-                {
-                    //Too many bounces. I'm dead X(
-                    Die();
-                }
-                else
-                {
-                    //Bounce off dat wall homie :)
-                    dir = Vector3.Reflect(lastVel.normalized, collision.contacts[0].normal);
-                    rb.velocity = dir * speed;
-                }
+                //Bounce off dat wall homie :)
+                dir = Vector3.Reflect(lastVel.normalized, collision.contacts[0].normal);
+                rb.velocity = dir * speed;
             }
         }
     }

@@ -2,50 +2,62 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerController : MonoBehaviour
+public class PlayerController : Controller
 {
-    public Tank myTank;
+    public KeyCode moveForwardKey;
+    public KeyCode moveBackwardKey;
+    public KeyCode strafeLeft;
+    public KeyCode strafeRight;
+    public KeyCode rotateLeft;
+    public KeyCode rotateRight;
+    public KeyCode shoot;
 
-    float xInput;
-    float yInput;
-
-    private void Update()
+    public override void Start()
     {
-        //Setting up Input
-        xInput = Input.GetAxisRaw("Horizontal");
-        yInput = Input.GetAxisRaw("Vertical");
+        base.Start();
+    }
 
-        //Setting Strafe variable if we want to strafe
-        myTank.isStrafing = Input.GetButton("Strafe");
+    public override void Update()
+    {
+        HandleInput();
 
-        //Calling Movement Functions
-        if (xInput > 0)
+        base.Update();
+    }
+
+    public override void HandleInput()
+    {
+        if (Input.GetKey(moveForwardKey))
         {
-            myTank.Right();
-        }
-        else
-        {
-            if (xInput < 0)
-            {
-                myTank.Left();
-            }
-        }
-        if (yInput > 0)
-        {
-            myTank.Forward();
-        }
-        else
-        {
-            if (yInput < 0)
-            {
-                myTank.Backward();
-            }
+            myPawn.MoveForward();
         }
 
-        //Shooting if we want to shoot
-        if(Input.GetButtonDown("Fire"))
+        if (Input.GetKey(moveBackwardKey))
         {
-            myTank.Shoot();
+            myPawn.MoveBackward();
         }
+
+        if (Input.GetKey(strafeLeft))
+        {
+            myPawn.StrafeLeft();
+        }
+
+        if (Input.GetKey(strafeRight))
+        {
+            myPawn.StrafeRight();
+        }
+        if (Input.GetKey(rotateLeft))
+        {
+            myPawn.RotateLeft();
+        }
+
+        if (Input.GetKey(rotateRight))
+        {
+            myPawn.RotateRight();
+        }
+        if (Input.GetKey(shoot))
+        {
+            myPawn.Shoot();
+        }
+
     }
 }
