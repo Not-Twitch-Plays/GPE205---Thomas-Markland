@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[System.Serializable]
 public class TankPawn : Pawn
 {
     public override void Start()
@@ -45,5 +46,14 @@ public class TankPawn : Pawn
     public override void Shoot()
     {
         myShooter.Shoot();
+    }
+    public override void RotateTowards(Vector3 targetPosition)
+    {
+        //Getting our math together
+        Vector3 vectorToTarget = targetPosition - transform.position;
+        Quaternion targetRotation = Quaternion.LookRotation(vectorToTarget, Vector3.up);
+
+        //Starts Rotating
+        transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, turnSpeed * Time.deltaTime);
     }
 }

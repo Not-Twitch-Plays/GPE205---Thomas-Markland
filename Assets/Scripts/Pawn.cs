@@ -27,4 +27,5 @@ public abstract class Pawn : MonoBehaviour
     public abstract void RotateLeft();
     public abstract void RotateRight();
     public abstract void Shoot();
+    public abstract void RotateTowards(Vector3 targetPosition);
 }

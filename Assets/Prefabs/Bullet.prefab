@@ -245,8 +245,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d322fcb4b0a0ad94a98472f2cb9422c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 10
-  dmg: 25
+  speed: 25
   maxBounces: 1
   deathExplosion: {fileID: 4436623722131966554, guid: 71b939d093616064ca4bc7648e77c64b, type: 3}
 --- !u!135 &1477408752003798340

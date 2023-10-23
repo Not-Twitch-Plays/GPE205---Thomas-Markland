@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[System.Serializable]
 public class PlayerController : Controller
 {
     public KeyCode moveForwardKey;
@@ -12,16 +13,24 @@ public class PlayerController : Controller
     public KeyCode rotateRight;
     public KeyCode shoot;
 
+    // Start is called before the first frame update
     public override void Start()
     {
         base.Start();
+        //Registering w/ GameManager
+        if (GameManager.instance != null)
+        {
+            if (GameManager.instance.players != null)
+            {
+                GameManager.instance.players.Add(this);
+            }
+        }
     }
 
     public override void Update()
     {
-        HandleInput();
-
         base.Update();
+        HandleInput();
     }
 
     public override void HandleInput()
@@ -36,6 +45,7 @@ public class PlayerController : Controller
             myPawn.MoveBackward();
         }
 
+        /*
         if (Input.GetKey(strafeLeft))
         {
             myPawn.StrafeLeft();
@@ -45,6 +55,7 @@ public class PlayerController : Controller
         {
             myPawn.StrafeRight();
         }
+        */
         if (Input.GetKey(rotateLeft))
         {
             myPawn.RotateLeft();
@@ -59,5 +70,18 @@ public class PlayerController : Controller
             myPawn.Shoot();
         }
 
+    }
+    public void OnDestroy()
+    {
+        // If we have a GameManager
+        if (GameManager.instance != null)
+        {
+            // And it tracks the player(s)
+            if (GameManager.instance.players != null)
+            {
+                // Deregister with the GameManager
+                GameManager.instance.players.Remove(this);
+            }
+        }
     }
 }
