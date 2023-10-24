@@ -62,11 +62,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4734206591413930335, guid: 3187e026e3dfd2843aee34232f62e819, type: 3}
       propertyPath: health
-      value: 25
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 4734206591413930335, guid: 3187e026e3dfd2843aee34232f62e819, type: 3}
       propertyPath: maxHealth
-      value: 25
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 7028246176513408746, guid: 3187e026e3dfd2843aee34232f62e819, type: 3}
       propertyPath: m_Radius

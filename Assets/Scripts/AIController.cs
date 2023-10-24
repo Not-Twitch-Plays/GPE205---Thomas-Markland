@@ -154,6 +154,5 @@ public class AIController : Controller
         //Set the new state and update lastStateChangeTime
         currentState = newState;
         lastStateChangeTime = Time.time;
-
     }
 }

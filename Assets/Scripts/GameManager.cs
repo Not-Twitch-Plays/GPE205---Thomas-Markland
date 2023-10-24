@@ -33,13 +33,13 @@ public class GameManager : MonoBehaviour
 
     public void SpawnPlayer()
     {
-        // Spawn a Player Controller
+        // Spawn a PlayerController
         GameObject newPlayerObj = Instantiate(playerControllerPrefab, Vector3.zero, Quaternion.identity) as GameObject;
-        GameObject newPawnObj = Instantiate(tankPawnPrefab, playerSpawnTransform.position, playerSpawnTransform.rotation) as GameObject;
         Controller newController = newPlayerObj.GetComponent<Controller>();
+        //Spawns a Pawn for our player
+        GameObject newPawnObj = Instantiate(tankPawnPrefab, playerSpawnTransform.position, playerSpawnTransform.rotation) as GameObject;
         Pawn newPawn = newPawnObj.GetComponent<Pawn>();
+        //Links our pawn and controller together
         newController.myPawn = newPawn;
-
-        //Letting the game know THIS pawn is our player
     }
 }
