@@ -8,12 +8,14 @@ public abstract class Pawn : MonoBehaviour
     public float turnSpeed;
     public Mover myMover;
     public Shooter myShooter;
+    public Rigidbody rb;
 
     // Start is called before the first frame update
     public virtual void Start()
     {
         myMover = GetComponent<Mover>();
         myShooter = GetComponent<Shooter>();
+        rb = GetComponent<Rigidbody>();
     }
     public virtual void Update()
     {

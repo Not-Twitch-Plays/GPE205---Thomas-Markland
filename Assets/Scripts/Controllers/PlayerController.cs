@@ -45,7 +45,7 @@ public class PlayerController : Controller
             myPawn.MoveBackward();
         }
 
-        /*
+        
         if (Input.GetKey(strafeLeft))
         {
             myPawn.StrafeLeft();
@@ -55,7 +55,7 @@ public class PlayerController : Controller
         {
             myPawn.StrafeRight();
         }
-        */
+        
         if (Input.GetKey(rotateLeft))
         {
             myPawn.RotateLeft();

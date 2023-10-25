@@ -5,6 +5,8 @@ using UnityEngine;
 [System.Serializable]
 public class TankPawn : Pawn
 {
+    public GameObject body;
+
     public override void Start()
     {
         base.Start();
@@ -13,6 +15,12 @@ public class TankPawn : Pawn
     public override void Update()
     {
         base.Update();
+        if (Mathf.Round(rb.velocity.magnitude * 10) / 10 != 0)
+        {
+        
+            body.transform.forward = rb.velocity;
+            body.transform.Rotate(-90, 0, 0);
+        }
     }
 
     public override void MoveForward()

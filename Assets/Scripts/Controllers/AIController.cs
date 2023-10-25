@@ -91,8 +91,11 @@ public class AIController : Controller
                 // And it tracks the player(s)
                 if (GameManager.instance.players != null)
                 {
-                    // Deregister with the GameManager
-                    target = GameManager.instance.players[0].myPawn.gameObject;
+                    // get the first player if they exist
+                    if (GameManager.instance.players[0].gameObject != null)
+                    {
+                        target = GameManager.instance.players[0].myPawn.gameObject;
+                    }
                 }
             }
         }
