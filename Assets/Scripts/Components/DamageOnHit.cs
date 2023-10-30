@@ -9,7 +9,7 @@ public class DamageOnHit : MonoBehaviour
     {
         if (collision.gameObject.GetComponent<Health>() != null)
         {
-            collision.gameObject.GetComponent<Health>().DoTakeDamage(Damage);
+            collision.gameObject.GetComponent<Health>().TakeDamage(Damage);
             //Only destroying if we hit something for now to support the bullet's bouncing the way I want them to
             Destroy(gameObject);
         }

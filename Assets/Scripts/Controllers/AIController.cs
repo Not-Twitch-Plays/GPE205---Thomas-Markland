@@ -63,8 +63,9 @@ public class AIController : Controller
             }
             else
             {
-                //If were in shooting distance, shoot. Otherwise, chase
-                if (targetDistance <= shootTargetDist)
+                //If were in shooting distance, and we ahve a line of sight, shoot. Otherwise, chase
+                RaycastHit hit;
+                if (targetDistance <= shootTargetDist && (Physics.Raycast(transform.position, (target.transform.position - transform.position), out hit, shootTargetDist)) && (hit.transform == target.transform))
                 {
                     ChangeState(AIState.Shoot);
                 }
@@ -134,7 +135,7 @@ public class AIController : Controller
     }
     protected void DoShootState()
     {
-        //Looks at target and shoots
+        //Looks at target
         myPawn.RotateTowards(target.transform.position);
         myPawn.Shoot();
     }

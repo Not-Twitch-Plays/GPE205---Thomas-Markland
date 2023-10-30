@@ -1,15 +1,21 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 [System.Serializable]
 public class TankPawn : Pawn
 {
     public GameObject body;
+    public Slider healthBar;
+
+    Health myHealth;
 
     public override void Start()
     {
         base.Start();
+        myHealth = GetComponent<Health>();
+        healthBar.maxValue = myHealth.maxHealth;
     }
 
     public override void Update()
@@ -17,10 +23,13 @@ public class TankPawn : Pawn
         base.Update();
         if (Mathf.Round(rb.velocity.magnitude * 10) / 10 != 0)
         {
-        
-            body.transform.forward = rb.velocity;
-            body.transform.Rotate(-90, 0, 0);
+
+            Quaternion toRotation = Quaternion.LookRotation(rb.velocity, Vector3.up);
+            body.transform.rotation = Quaternion.RotateTowards(body.transform.rotation, toRotation, 360 * Time.deltaTime);
         }
+
+        healthBar.value = myHealth.health;
+        healthBar.maxValue = myHealth.maxHealth;
     }
 
     public override void MoveForward()

@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class Health : MonoBehaviour
 {
-    public int health;
-    public int maxHealth;
+    public float health;
+    public float maxHealth;
     public bool isDead;
 
     public GameObject deathExplosion;
@@ -15,7 +15,7 @@ public class Health : MonoBehaviour
         health = maxHealth;
     }
 
-    public void DoTakeDamage(int dmg)
+    public void TakeDamage(int dmg)
     {
         if (!isDead)
         {
@@ -27,6 +27,14 @@ public class Health : MonoBehaviour
                 isDead = true;
                 DoDeath();
             }
+        }
+    }
+    public void Heal(float amount)
+    {
+        if (!isDead)
+        {
+            health += amount;
+            health = Mathf.Clamp(health, 0, maxHealth);
         }
     }
 
