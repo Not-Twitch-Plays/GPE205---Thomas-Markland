@@ -15,21 +15,26 @@ public class TankPawn : Pawn
     {
         base.Start();
         myHealth = GetComponent<Health>();
-        healthBar.maxValue = myHealth.maxHealth;
     }
 
     public override void Update()
     {
         base.Update();
-        if (Mathf.Round(rb.velocity.magnitude * 10) / 10 != 0)
+        if (body != null)
         {
+            if (Mathf.Round(rb.velocity.magnitude * 10) / 10 != 0)
+            {
 
-            Quaternion toRotation = Quaternion.LookRotation(rb.velocity, Vector3.up);
-            body.transform.rotation = Quaternion.RotateTowards(body.transform.rotation, toRotation, 360 * Time.deltaTime);
+                Quaternion toRotation = Quaternion.LookRotation(rb.velocity, Vector3.up);
+                body.transform.rotation = Quaternion.RotateTowards(body.transform.rotation, toRotation, 360 * Time.deltaTime);
+            }
+
         }
-
-        healthBar.value = myHealth.health;
-        healthBar.maxValue = myHealth.maxHealth;
+        if (healthBar != null)
+        {
+            healthBar.value = myHealth.health;
+            healthBar.maxValue = myHealth.maxHealth;
+        }
     }
 
     public override void MoveForward()

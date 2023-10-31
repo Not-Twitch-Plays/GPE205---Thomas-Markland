@@ -93,7 +93,7 @@ public class AIController : Controller
                 if (GameManager.instance.players != null)
                 {
                     // get the first player if they exist
-                    if (GameManager.instance.players[0].gameObject != null)
+                    if (GameManager.instance.players[0].myPawn != null)
                     {
                         target = GameManager.instance.players[0].myPawn.gameObject;
                     }

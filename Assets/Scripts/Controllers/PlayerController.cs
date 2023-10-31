@@ -30,7 +30,10 @@ public class PlayerController : Controller
     public override void Update()
     {
         base.Update();
-        HandleInput();
+        if (myPawn != null)
+        {
+            HandleInput();
+        }
     }
 
     public override void HandleInput()
