@@ -15,17 +15,17 @@ public class Health : MonoBehaviour
         health = maxHealth;
     }
 
-    public void TakeDamage(int dmg)
+    public void TakeDamage(int dmg, Controller dealer)
     {
         if (!isDead)
         {
             health -= dmg;
             health = Mathf.Clamp(health, 0, maxHealth);
 
-            if (health == 0)
+            if (health <= 0)
             {
                 isDead = true;
-                DoDeath();
+                DoDeath(dealer);
             }
         }
     }
@@ -38,9 +38,14 @@ public class Health : MonoBehaviour
         }
     }
 
-    public void DoDeath()
+    public void DoDeath(Controller killer)
     {
-        Instantiate(deathExplosion,transform.position,Quaternion.identity);
+        GameObject deathParticle = Instantiate(deathExplosion,transform.position,Quaternion.identity);
+        deathParticle.GetComponent<AudioSource>().volume = PlayerPrefs.GetFloat("SFX Volume");
+        if(killer.GetComponent<PlayerController>() != null && GetComponent<AIController>() != null)
+        {
+            killer.GetComponent<PlayerController>().score += 100;
+        }
         Destroy(gameObject);
     }
 }

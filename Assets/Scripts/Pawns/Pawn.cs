@@ -9,6 +9,7 @@ public abstract class Pawn : MonoBehaviour
     public Mover myMover;
     public Shooter myShooter;
     public Rigidbody rb;
+    public Controller myController;
 
     // Start is called before the first frame update
     public virtual void Start()
@@ -24,10 +25,9 @@ public abstract class Pawn : MonoBehaviour
 
     public abstract void MoveForward();
     public abstract void MoveBackward();
-    public abstract void StrafeLeft();
-    public abstract void StrafeRight();
     public abstract void RotateLeft();
     public abstract void RotateRight();
     public abstract void Shoot();
     public abstract void RotateTowards(Vector3 targetPosition);
+    public abstract void PlaySFX(AudioClip clip);
 }

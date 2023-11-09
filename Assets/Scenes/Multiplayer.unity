@@ -148,12 +148,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 345078595}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 1648217785}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &345078597
 MonoBehaviour:
@@ -176,8 +176,8 @@ MonoBehaviour:
   - {fileID: 121816, guid: b7781d4ed374b564ab685e7876c1a964, type: 3}
   - {fileID: 121816, guid: 877a53d3a41859748a1777180d6ec1ec, type: 3}
   - {fileID: 121816, guid: a62f42b0d41102a41b5ca4853deeaaa4, type: 3}
-  rows: 2
-  cols: 2
+  rows: 5
+  cols: 5
   roomWidth: 50
   roomHeight: 50
 --- !u!1 &768454914
@@ -391,6 +391,7 @@ MonoBehaviour:
   playerControllerPrefab: {fileID: 1321403021432607086, guid: a2b0dc964641d9b4c8bba20d4bd2c510, type: 3}
   tankPawnPrefab: {fileID: 3390717495728569717, guid: d4b9061e876d2484396fd4623c77412f, type: 3}
   players: []
+  isSplitscreen: 1
 --- !u!4 &1648217785
 Transform:
   m_ObjectHideFlags: 0
@@ -403,7 +404,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 345078596}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!82 &1648217786
@@ -509,4 +511,3 @@ SceneRoots:
   - {fileID: 1648217785}
   - {fileID: 1260301676}
   - {fileID: 768454916}
-  - {fileID: 345078596}

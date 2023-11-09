@@ -13,6 +13,10 @@ public abstract class Controller : MonoBehaviour
     public virtual void Update()
     {
         //Just in case
+        if (myPawn.myController != this)
+        {
+            myPawn.myController = this;
+        }
     }
 
     public abstract void HandleInput();

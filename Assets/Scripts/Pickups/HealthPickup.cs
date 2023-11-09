@@ -17,7 +17,8 @@ public class HealthPickup : MonoBehaviour
             powerupManager.Add(powerup);
 
             // Destroy this pickup and spawn the effect for it
-            Instantiate(powerup.pickupEffect,transform.position,Quaternion.identity);
+            GameObject powerupParticle = Instantiate(powerup.pickupEffect,transform.position,Quaternion.identity);
+            powerupParticle.GetComponent<AudioSource>().volume = PlayerPrefs.GetFloat("SFX Volume");
             Destroy(gameObject);
         }
     }

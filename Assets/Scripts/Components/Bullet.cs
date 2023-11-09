@@ -10,6 +10,11 @@ public class Bullet : MonoBehaviour
 
     public GameObject deathExplosion;
 
+    public AudioClip hitSound;
+
+    public Controller myOwner;
+
+    AudioSource sfx;
 
     Rigidbody rb;
     int bounces;
@@ -22,6 +27,7 @@ public class Bullet : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         //Initial velocity
         rb.velocity = transform.forward * speed;
+        sfx = GetComponent<AudioSource>();
     }
 
     void LateUpdate()
@@ -35,7 +41,6 @@ public class Bullet : MonoBehaviour
         if (collision.gameObject.tag == "Bullet")
         {
             //We hit another bullet!
-            Destroy(collision.gameObject);
             Die();
         }
         else
@@ -54,13 +59,15 @@ public class Bullet : MonoBehaviour
                 //Bounce off dat wall homie :)
                 dir = Vector3.Reflect(lastVel.normalized, collision.contacts[0].normal);
                 rb.velocity = dir * speed;
+                sfx.PlayOneShot(hitSound, PlayerPrefs.GetFloat("SFX Volume"));
             }
         }
     }
 
     void Die()
     {
-        Instantiate(deathExplosion,transform.position,Quaternion.identity);
+        GameObject deathParticle = Instantiate(deathExplosion,transform.position,Quaternion.identity);
+        deathParticle.GetComponent<AudioSource>().volume = PlayerPrefs.GetFloat("SFX Volume");
         Destroy(gameObject);
     }
 }

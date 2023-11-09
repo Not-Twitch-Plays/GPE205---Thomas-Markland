@@ -10,6 +10,8 @@ public class GameManager : MonoBehaviour
     public GameObject playerControllerPrefab;
     public GameObject tankPawnPrefab;
     public List<PlayerController> players;
+    
+    AudioSource music;
 
     private void Awake()
     {
@@ -24,11 +26,11 @@ public class GameManager : MonoBehaviour
             //No extra instances
             Destroy(gameObject);
         }
-    }
 
-    private void Start()
-    {
-        SpawnPlayer();
+        //Setting up Music
+        music = GetComponent<AudioSource>();
+        music.volume = PlayerPrefs.GetFloat("Music Volume");
+        music.Play();
     }
 
     public void SpawnPlayer()
@@ -44,5 +46,16 @@ public class GameManager : MonoBehaviour
         Pawn newPawn = newPawnObj.GetComponent<Pawn>();
         //Links our pawn and controller together
         newController.myPawn = newPawn;
+    }
+    public void RespawnPlayer(PlayerController pc)
+    {
+
+        //Setting Random Player Spawn
+        playerSpawnTransform = GameObject.FindGameObjectsWithTag("PlayerSpawn")[Random.Range(0, GameObject.FindGameObjectsWithTag("PlayerSpawn").Length - 1)].transform;
+        //Spawns a Pawn for our player
+        GameObject newPawnObj = Instantiate(tankPawnPrefab, playerSpawnTransform.position, playerSpawnTransform.rotation) as GameObject;
+        Pawn newPawn = newPawnObj.GetComponent<Pawn>();
+        //Links our pawn and our old controller together
+        pc.myPawn = newPawn;
     }
 }

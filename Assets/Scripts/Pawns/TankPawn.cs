@@ -7,14 +7,18 @@ using UnityEngine.UI;
 public class TankPawn : Pawn
 {
     public GameObject body;
+
     public Slider healthBar;
 
     Health myHealth;
+
+    AudioSource sfx;
 
     public override void Start()
     {
         base.Start();
         myHealth = GetComponent<Health>();
+        sfx = GetComponent<AudioSource>();
     }
 
     public override void Update()
@@ -36,26 +40,16 @@ public class TankPawn : Pawn
             healthBar.maxValue = myHealth.maxHealth;
         }
     }
-
+    //Movement
     public override void MoveForward()
     {
         myMover.Move(transform.forward, moveSpeed);
     }
-
     public override void MoveBackward()
     {
         myMover.Move(transform.forward, -moveSpeed);
     }
-
-    public override void StrafeLeft()
-    {
-        myMover.Move(transform.right, -moveSpeed);
-    }
-
-    public override void StrafeRight()
-    {
-        myMover.Move(transform.right, moveSpeed);
-    }
+    //Rotation
     public override void RotateLeft()
     {
         myMover.Rotate(-turnSpeed);
@@ -77,5 +71,9 @@ public class TankPawn : Pawn
 
         //Starts Rotating
         transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, turnSpeed * Time.deltaTime);
+    }
+    public override void PlaySFX(AudioClip clip)
+    {
+        sfx.PlayOneShot(clip, PlayerPrefs.GetFloat("SFX Volume"));
     }
 }

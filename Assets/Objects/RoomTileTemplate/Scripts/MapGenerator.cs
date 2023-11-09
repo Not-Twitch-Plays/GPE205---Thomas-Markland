@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class MapGenerator : MonoBehaviour
 {
@@ -14,6 +15,15 @@ public class MapGenerator : MonoBehaviour
     private void Awake()
     {
         GenerateMap();
+    }
+
+    private void Start()
+    {
+        if (GameManager.instance != null)
+        {
+            Debug.Log("Spawning Player");
+            GameManager.instance.SpawnPlayer();
+        }
     }
 
     //Returns a random room
