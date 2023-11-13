@@ -46,6 +46,10 @@ public class AIController : Controller
     public override void Update()
     {
         base.Update();
+    }
+
+    private void LateUpdate()
+    {
         MakeDecisions();
     }
 
@@ -135,9 +139,14 @@ public class AIController : Controller
     }
     protected void DoShootState()
     {
-        //Looks at target
+        //Looks at target and shoots
         myPawn.RotateTowards(target.transform.position);
-        myPawn.Shoot();
+        //Make sure were not looking at a wall!
+        RaycastHit hit;
+        if ((Physics.Raycast(transform.position, (target.transform.position - transform.position), out hit, shootTargetDist)) && (hit.transform == target.transform))
+        {
+            myPawn.Shoot();
+        }
     }
     protected void DoChaseState(Vector3 targetPosition)
     {

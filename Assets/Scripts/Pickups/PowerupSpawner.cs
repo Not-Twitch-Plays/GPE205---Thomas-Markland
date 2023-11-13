@@ -26,7 +26,7 @@ public class PowerupSpawner : MonoBehaviour
             {
                 // Spawn it and reset the Timer
                 spawnedPickup = Instantiate(pickupPrefab, transform.position, Quaternion.identity) as GameObject;
-                nextSpawnTime = Time.time + spawnDelay;
+                nextSpawnTime = Time.time + Random.Range(spawnDelay / 2, spawnDelay * 2);
             }
         }
         else

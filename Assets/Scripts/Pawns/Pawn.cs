@@ -25,6 +25,8 @@ public abstract class Pawn : MonoBehaviour
 
     public abstract void MoveForward();
     public abstract void MoveBackward();
+    public abstract void StrafeLeft();
+    public abstract void StrafeRight();
     public abstract void RotateLeft();
     public abstract void RotateRight();
     public abstract void Shoot();

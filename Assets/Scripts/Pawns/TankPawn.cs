@@ -14,6 +14,8 @@ public class TankPawn : Pawn
 
     AudioSource sfx;
 
+    float turnVelocity;
+
     public override void Start()
     {
         base.Start();
@@ -39,6 +41,10 @@ public class TankPawn : Pawn
             healthBar.value = myHealth.health;
             healthBar.maxValue = myHealth.maxHealth;
         }
+
+        turnVelocity = Mathf.Lerp(turnVelocity,0,5 * Time.deltaTime);
+        turnVelocity = Mathf.Round(turnVelocity * 10) / 10;
+        turnVelocity = Mathf.Clamp(turnVelocity, 0, turnSpeed);
     }
     //Movement
     public override void MoveForward()
@@ -49,15 +55,25 @@ public class TankPawn : Pawn
     {
         myMover.Move(transform.forward, -moveSpeed);
     }
+    public override void StrafeLeft()
+    {
+        myMover.Move(transform.right, -moveSpeed);
+    }
+    public override void StrafeRight()
+    {
+        myMover.Move(transform.right, moveSpeed);
+    }
     //Rotation
     public override void RotateLeft()
     {
-        myMover.Rotate(-turnSpeed);
+        turnVelocity += turnSpeed / 100;
+        myMover.Rotate(-turnVelocity);
     }
 
     public override void RotateRight()
     {
-        myMover.Rotate(turnSpeed);
+        turnVelocity += turnSpeed / 100;
+        myMover.Rotate(turnVelocity);
     }
     public override void Shoot()
     {

@@ -4,6 +4,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using UnityEditor;
 
 [System.Serializable]
 public class PlayerController : Controller
@@ -14,13 +15,18 @@ public class PlayerController : Controller
 
     public KeyCode moveForwardKey;
     public KeyCode moveBackwardKey;
+    public KeyCode strafeLeftKey;
+    public KeyCode strafeRightKey;
     public KeyCode rotateLeft;
     public KeyCode rotateRight;
-    public KeyCode shoot;
+    public KeyCode shootKey;
+    public KeyCode pauseKey;
 
     public GameObject myCamera;
     public GameObject loseScreen;
     public GameObject winScreen;
+    public GameObject pauseMenu;
+    public GameObject gameplayUI;
 
     public Slider healthBar;
 
@@ -45,6 +51,9 @@ public class PlayerController : Controller
         myHealth = myPawn.GetComponent<Health>();
         loseScreen.SetActive(false);
         winScreen.SetActive(false);
+        pauseMenu.SetActive(false);
+        gameplayUI.SetActive(true);
+        myPawn.turnSpeed = PlayerPrefs.GetFloat("Turn Sensitivity");
 
         //Registering w/ GameManager
         if (GameManager.instance != null)
@@ -65,8 +74,22 @@ public class PlayerController : Controller
             HandleInput();
             deathTimer = 0;
 
-            //Move our camera to look at our tank
-            myCamera.transform.position = Vector3.Lerp(myCamera.transform.position, myPawn.transform.position + cameraOffset, 10 * Time.deltaTime);
+            //Move our camera based on our POV setting
+            switch (PlayerPrefs.GetInt("POV"))
+            {
+                case 0:
+                    //Third Person
+                    cameraOffset = new Vector3(0,2.5f,-5);
+                    break;
+                case 1:
+                    //First Person
+                    cameraOffset = new Vector3(0, 1.15f, 0);
+                    break;
+            }
+            GameObject cp = myPawn.transform.Find("CameraPivot").gameObject;
+            cp.transform.localPosition = cameraOffset;
+            myCamera.transform.rotation = cp.transform.rotation;
+            myCamera.transform.position = cp.transform.position;
 
             //Update the UI
             healthBar.maxValue = myHealth.maxHealth;
@@ -91,6 +114,11 @@ public class PlayerController : Controller
                     //Respawn a new tank
                     GameManager.instance.RespawnPlayer(this);
                     myHealth = myPawn.GetComponent<Health>();
+                    loseScreen.SetActive(false);
+                    winScreen.SetActive(false);
+                    pauseMenu.SetActive(false);
+                    gameplayUI.SetActive(true);
+                    myPawn.turnSpeed = PlayerPrefs.GetFloat("Turn Sensitivity");
                     isDead = false;
                 }
                 //If we run out of lives, we lose :(
@@ -119,6 +147,15 @@ public class PlayerController : Controller
         {
             myPawn.MoveBackward();
         }
+        if (Input.GetKey(strafeLeftKey))
+        {
+            myPawn.StrafeLeft();
+        }
+
+        if (Input.GetKey(strafeRightKey))
+        {
+            myPawn.StrafeRight();
+        }
 
         if (Input.GetKey(rotateLeft))
         {
@@ -129,9 +166,13 @@ public class PlayerController : Controller
         {
             myPawn.RotateRight();
         }
-        if (Input.GetKey(shoot))
+        if (Input.GetKey(shootKey))
         {
             myPawn.Shoot();
+        }
+        if (Input.GetKey(pauseKey))
+        {
+            Pause();
         }
 
     }
@@ -151,10 +192,23 @@ public class PlayerController : Controller
 
     public void MainMenu()
     {
+        Time.timeScale = 1;
         SceneManager.LoadScene("MainMenu");
     }
     public void NewLevel()
     {
         SceneManager.LoadScene("Main");
+    }
+    public void Pause()
+    {
+        pauseMenu.SetActive(true);
+        gameplayUI.SetActive(false);
+        Time.timeScale = 0;
+    }
+    public void Unpause()
+    {
+        pauseMenu.SetActive(false);
+        gameplayUI.SetActive(true);
+        Time.timeScale = 1;
     }
 }

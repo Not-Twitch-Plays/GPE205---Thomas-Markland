@@ -247,9 +247,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 25
-  maxBounces: 1
-  deathExplosion: {fileID: 4436623722131966554, guid: 71b939d093616064ca4bc7648e77c64b, type: 3}
-  hitSound: {fileID: 8300000, guid: fa266eef31b60d64b989ab4be559812e, type: 3}
+  myOwner: {fileID: 0}
 --- !u!135 &1477408752003798340
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -311,6 +309,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Damage: 25
+  deathExplosion: {fileID: 4436623722131966554, guid: 71b939d093616064ca4bc7648e77c64b, type: 3}
 --- !u!82 &9053198327724442755
 AudioSource:
   m_ObjectHideFlags: 0

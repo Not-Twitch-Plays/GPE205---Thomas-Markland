@@ -18,7 +18,7 @@ public class SpeedPowerup : Powerup
         Mover targetMover = target.GetComponent<Mover>();
         if (targetMover != null)
         {
-            //Add Speed Boost
+            //Remove Speed Boost
             targetMover.moveSpeedMultiplier = 1;
         }
     }

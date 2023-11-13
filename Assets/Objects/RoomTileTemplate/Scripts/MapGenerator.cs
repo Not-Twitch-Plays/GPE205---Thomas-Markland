@@ -21,7 +21,6 @@ public class MapGenerator : MonoBehaviour
     {
         if (GameManager.instance != null)
         {
-            Debug.Log("Spawning Player");
             GameManager.instance.SpawnPlayer();
         }
     }

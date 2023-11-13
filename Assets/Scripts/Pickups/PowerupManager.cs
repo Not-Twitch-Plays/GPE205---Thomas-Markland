@@ -8,11 +8,14 @@ public class PowerupManager : MonoBehaviour
 
     List<Powerup> powerupTrash;
 
+    Pawn myPawn;
+
 
     private void Start()
     {
         powerups = new List<Powerup>();
         powerupTrash = new List<Powerup>();
+        myPawn = GetComponent<Pawn>();
     }
     private void Update()
     {
@@ -28,6 +31,11 @@ public class PowerupManager : MonoBehaviour
         powerupToAdd.Apply(this);
         // Save it to the main list
         powerups.Add(powerupToAdd);
+        //if were the player, give the player 1000 points
+        if (myPawn.myController.GetComponent<PlayerController>() != null)
+        {
+            myPawn.myController.GetComponent<PlayerController>().score += 1000;
+        }
     }
     public void Remove(Powerup powerupToRemove)
     {
